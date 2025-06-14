@@ -1,0 +1,42 @@
+data:
+  x_path: "${hydra:runtime.cwd}/data_decoder/X_phate.npy"
+  y_path: "${hydra:runtime.cwd}/data_decoder/X_pca.npy"
+  weights_path: "${hydra:runtime.cwd}/data_decoder/var_ratio.npy"
+  train_ratio: 0.7
+  val_ratio: 0.15  # test_ratio will be 1 - train_ratio - val_ratio = 0.15
+
+scalers:
+  save_dir: "scalers"
+
+save:
+  model_dir: "model"
+
+model:
+  layer_widths: [32, 32]
+  dropout: 0.1
+  batchnorm: true
+  weight_decay: 0.0001
+  lr: 0.001
+  scheduler:
+    name: "reduce_on_plateau"  # options: reduce_on_plateau, cosine, step
+    patience: 10
+    factor: 0.5
+    min_lr: 1e-6
+    monitor: "val_loss"
+
+training:
+  batch_size: 32
+  drop_last: true
+  max_epochs: 100
+  accelerator: "gpu"  # can be "cpu" or "gpu"
+  devices: 1
+  num_workers: 4
+
+logging:
+  wandb_project: "cflows_decoder"
+  checkpoint_dir: "checkpoints"
+  save_top_k: 1
+  monitor_metric: "val_loss"
+  monitor_mode: "min"
+  log_every_n_steps: 1
+  # run_name: null  # Optional: Specify a custom run name for wandb 

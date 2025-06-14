@@ -1,0 +1,23 @@
+# Inherit from base config
+defaults:
+  - config
+  - _self_
+
+data:
+  train_ratio: 0.6
+  val_ratio: 0.2  # test_ratio will be 0.2
+
+training:
+  batch_size: 200
+  max_epochs: 10
+  accelerator: "cpu"
+  num_workers: 1
+
+logging:
+  logger: "tensorboard"
+  tensorboard_dir: "tensorboard_logs"
+  log_every_n_steps: 1 
+
+model:
+  layer_widths: [32, 32, 32, 32]
+  dropout: 0.

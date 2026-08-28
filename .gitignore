@@ -1,0 +1,9 @@
+data/*
+!data/README.md
+!data/manifest.tsv
+results/
+cflows_data.tar.gz
+__pycache__/
+.ipynb_checkpoints/
+*.py[cod]
+.DS_Store
